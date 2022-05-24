@@ -13,7 +13,8 @@
 class ApplicationRecord
   def self.inherited(base)
     p base
-    base.instance_variable_set(:@validations&.dup, {})
+    @validations ||= {}
+    base.instance_variable_set(:@validations, @validations.dup)
   end
 
   def self.validates(name, **options)
@@ -26,11 +27,12 @@ class ApplicationRecord
 end
 
 class User < ApplicationRecord
-  # validates :name, presence: true
+  validates :name, presence: true
 end
 
 class Admin < User
+  validates :admin, presence: true
 end
 
-p ApplicationRecord.validations
-p Project.validations
+p User.validations
+p Admin.validations
