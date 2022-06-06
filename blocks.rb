@@ -6,7 +6,7 @@
 # we can use the ruby method .block_given? to check if a block was provided to the method
 
 # you can't call puts on code with a block because puts will wrap the method call
-# puts link_to("blah") { "in the block" }
+# puts(link_to("blah")) { "in the block" } => Error
 # we can assign it to a variable and then print it though
 # link = link_to("blah") { "in the block" }
 # puts link

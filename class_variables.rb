@@ -5,7 +5,7 @@
 class ApplicationRecord
   @@validations = {}
 
-  def validates(name. **options)
+  def validates(name, **options)
     @@validations[name] = options
   end
 
