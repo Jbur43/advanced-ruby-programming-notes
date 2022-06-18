@@ -5,6 +5,7 @@ require "refinements"
 # $LOAD_PATH is an env variable with a list of folders where it will
 # look for files to load in the order of the array items. So if
 # we add something to $LOAD_PATH you may want to preprend it to the list
+# so it is looked for first.
 
 # You can always load the absolute path of a file, but you would normally
 # modify the load path.
