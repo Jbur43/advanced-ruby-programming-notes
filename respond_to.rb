@@ -1,35 +1,35 @@
-# the concept of writing code that writes code.
-# method_missing gives us a way of interacting with objects / attributes that don't necessarily need
-# to be defined right away.
-
-# def method_missing(name, *args, &block)
-#   puts name, args, block
-#   # call rubys default handler
-#   # super
-# end
-
-# hello do end
+# you can work with any type by asking if the object responds_to
 
 
 class User
-  attr_reader :attributes
+  attr_reader :attributes, :allowed
 
   def initialize
+    @allowed = [:id, :email, :name]
     @attributes = {}
   end
 
   def method_missing(name, *args, &block)
     # reason we are able to do this is because
     # user.email = "x" is actually user.email=("x")
-    if name.end_with?("=")
+    if !respond_to_missing?(name)
+      super
+    elsif name.end_with?("=")
       @attributes[name.to_s[0..-2].to_sym] = args.first
     else
       @attributes[name]
     end
   end
+
+  def respond_to_missing?(name, *)
+    allowed.include?(name.to_s.gsub("=", "").to_sym)
+  end
 end
 
 user = User.new
+p user.respond_to?(:email)
+p user.respond_to?(:upcase)
 p user.email
 user.email = "test@test.com"
 p user.email
+
